@@ -24,11 +24,11 @@ from collections import namedtuple, OrderedDict
 '''change here'''
 path='D:\\Database\\Transmission_lines\\Insulator\\Drop_off\\256roi_64test_192train'
 
-flags = tf.app.flags
-#获取train和test的input路径（包含train_labels.csv与test_labels.csv文件）和output路径
-flags.DEFINE_string('csv_input', '', 'Path to the CSV input')
-flags.DEFINE_string('output_path', '', 'Path to output TFRecord')
-FLAGS = flags.FLAGS
+#flags = tf.app.flags
+##获取train和test的input路径（包含train_labels.csv与test_labels.csv文件）和output路径
+#flags.DEFINE_string('csv_input', '', 'Path to the CSV input')
+#flags.DEFINE_string('output_path', '', 'Path to output TFRecord')
+#FLAGS = flags.FLAGS
 
 #将class转换成数字
 '''change here'''
@@ -87,10 +87,10 @@ def create_tf_example(group, path):
     return tf_example
 
 
-def main(_):
+def main():
     
     '''change here'''
-    output_path = path+'\\CSV_tfrecord\\train.record'
+    output_path = path+'\\CSV_tfrecord\\test.record'
     #output_path = path+'\\CSV_tfrecord\\test.record'
 
     writer = tf.python_io.TFRecordWriter(output_path)
@@ -98,7 +98,7 @@ def main(_):
     fullpath = os.path.join(path, 'JPEGImages')
     
     '''change here'''
-    examples = pd.read_csv(path+'\\CSV_tfrecord\\train_labels.csv')
+    examples = pd.read_csv(path+'\\CSV_tfrecord\\test_labels.csv')
     #examples = pd.read_csv(path+'\\CSV_tfrecord\\test_labels.csv')
     
     grouped = split(examples, 'filename')
@@ -111,5 +111,4 @@ def main(_):
     print('Successfully created the TFRecords: {}'.format(output_path))
     
 
-if __name__ == '__main__':
-    tf.app.run()   
+main()
